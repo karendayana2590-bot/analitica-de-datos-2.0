@@ -1,0 +1,110 @@
+[
+  {
+    "id": "syntax",
+    "code": "cantidad = 100\nprint(cantidad == 100)",
+    "prepare": "",
+    "expected": "True"
+  },
+  {
+    "id": "import",
+    "code": "import pandas as pd",
+    "prepare": "",
+    "expected": "La instrucción termina sin mostrar una tabla."
+  },
+  {
+    "id": "series",
+    "code": "s = pd.Series([100, 110, 120])\ns",
+    "prepare": "import pandas as pd",
+    "expected": "Índice 0 con valor 100; índice 1 con 110; índice 2 con 120. El tipo es entero."
+  },
+  {
+    "id": "df",
+    "code": "mini = pd.DataFrame({\n    \"turno\": [\"A\", \"B\"],\n    \"cantidad\": [100, 90]\n})\nmini",
+    "prepare": "import pandas as pd",
+    "expected": "Dos filas y dos columnas: A con 100, B con 90."
+  },
+  {
+    "id": "csv",
+    "code": "import pandas as pd\ndf = pd.read_csv(\"produccion.csv\")\ndf.head()",
+    "prepare": "",
+    "expected": "Ids 1, 2, 3, 4 y 5; cantidades 100, 90, 110, 100 y 120."
+  },
+  {
+    "id": "head",
+    "code": "df.head(3)",
+    "prepare": "import pandas as pd\ndf = pd.read_csv(\"produccion.csv\")",
+    "expected": "Ids 1, 2 y 3."
+  },
+  {
+    "id": "tail",
+    "code": "df.tail(3)",
+    "prepare": "import pandas as pd\ndf = pd.read_csv(\"produccion.csv\")",
+    "expected": "Ids 6, 7 y 8, con cantidades 110, 130 y 120."
+  },
+  {
+    "id": "shape",
+    "code": "df.shape",
+    "prepare": "import pandas as pd\ndf = pd.read_csv(\"produccion.csv\")",
+    "expected": "(8, 10)"
+  },
+  {
+    "id": "columns",
+    "code": "df.columns",
+    "prepare": "import pandas as pd\ndf = pd.read_csv(\"produccion.csv\")",
+    "expected": "id, fecha, producto, linea, turno, cantidad, defectuosas, tiempo_min, parada_min y costo."
+  },
+  {
+    "id": "types",
+    "code": "df.dtypes",
+    "prepare": "import pandas as pd\ndf = pd.read_csv(\"produccion.csv\")",
+    "expected": "id, cantidad, defectuosas, tiempo_min y costo son enteros. parada_min es decimal. fecha, producto, linea y turno son texto."
+  },
+  {
+    "id": "info",
+    "code": "df.info()",
+    "prepare": "import pandas as pd\ndf = pd.read_csv(\"produccion.csv\")",
+    "expected": "Ocho valores no nulos en cada una de las diez columnas."
+  },
+  {
+    "id": "one-column",
+    "code": "df[\"cantidad\"]",
+    "prepare": "import pandas as pd\ndf = pd.read_csv(\"produccion.csv\")",
+    "expected": "Series con 100, 90, 110, 100, 120, 110, 130 y 120."
+  },
+  {
+    "id": "several-columns",
+    "code": "df[[\"turno\", \"cantidad\"]]",
+    "prepare": "import pandas as pd\ndf = pd.read_csv(\"produccion.csv\")",
+    "expected": "DataFrame de ocho filas y dos columnas."
+  },
+  {
+    "id": "mask",
+    "code": "df[\"turno\"] == \"A\"",
+    "prepare": "import pandas as pd\ndf = pd.read_csv(\"produccion.csv\")",
+    "expected": "True en las posiciones de los ids 1, 3, 5 y 7. False en los otros cuatro."
+  },
+  {
+    "id": "filter-a",
+    "code": "df[df[\"turno\"] == \"A\"]",
+    "prepare": "import pandas as pd\ndf = pd.read_csv(\"produccion.csv\")",
+    "expected": "Ids 1, 3, 5 y 7, con cantidades 100, 110, 120 y 130."
+  },
+  {
+    "id": "filter-quantity",
+    "code": "df[df[\"cantidad\"] >= 120]",
+    "prepare": "import pandas as pd\ndf = pd.read_csv(\"produccion.csv\")",
+    "expected": "Ids 5, 7 y 8: cantidades 120, 130 y 120."
+  },
+  {
+    "id": "guided",
+    "code": "df.shape",
+    "prepare": "import pandas as pd\ndf = pd.read_csv(\"produccion.csv\")",
+    "expected": "(8, 10)"
+  },
+  {
+    "id": "challenge",
+    "code": "turno_b = df[df[\"turno\"] == \"B\"]\n# Escribe aquí la selección de id y cantidad",
+    "prepare": "import pandas as pd\ndf = pd.read_csv(\"produccion.csv\")",
+    "expected": "Cuatro filas, dos columnas. Ids 2, 4, 6 y 8; cantidades 90, 100, 110 y 120."
+  }
+]
