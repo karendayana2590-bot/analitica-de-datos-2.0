@@ -1,39 +1,9 @@
-<!doctype html>
-<html lang="es">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Clase de pandas desde cero para Ingeniería Industrial. Explicaciones paso a paso, Python en el navegador y práctica guiada con datos de producción.">
-  <meta name="theme-color" content="#183c3d">
-  <title>Analítica de datos 2.0 · pandas desde cero</title>
-  <link rel="stylesheet" href="styles.css">
-  <script defer src="lesson.js"></script>
-  <script defer src="model.js"></script>
-  <script defer src="app.js?v=2"></script>
-</head>
-<body>
-  <a class="skip-link" href="#contenido">Saltar a la explicación</a>
-  <header class="topbar">
-    <a class="brand" href="#inicio"><span class="brand-symbol" aria-hidden="true">a<span>2</span></span><span>Analítica de datos <strong>2.0</strong><small>Ingeniería Industrial</small></span></a>
-    <div class="top-actions"><button class="quiet" id="menu-toggle" aria-expanded="false" aria-controls="sidebar">Recorrido</button><a href="#docente" class="teacher-link">Guía del docente</a><button id="export-progress" class="quiet">Guardar mi trabajo</button></div>
-  </header>
-  <div class="page-layout">
-    <aside id="sidebar" class="sidebar">
-      <p class="eyebrow">Unidad 2 · Clase 1</p>
-      <h2>Tablas con pandas</h2>
-      <p class="sidebar-intro">Comprender los datos antes de analizarlos.</p>
-      <div class="progress-wrap"><span id="progress-label">0 de 14 tramos revisados</span><progress id="progress" max="14" value="0">0</progress></div>
-      <nav id="lesson-nav" aria-label="Recorrido de aprendizaje"></nav>
-      <div class="sidebar-bottom"><a href="data/produccion.csv" download>Descargar los datos CSV</a><a href="cuadernos/Clase_1_pandas_desde_cero.ipynb" download>Descargar el cuaderno</a><a href="#recursos">Orden de estudio y recursos</a><p>Tu avance se guarda en este navegador. No se envían respuestas a un servidor.</p><button id="reset-progress" class="text-button">Reiniciar mi avance</button></div>
-    </aside>
-    <main id="contenido" tabindex="-1">
-      <div id="save-notice" role="status"></div>
-      <article id="lesson-content"></article>
-      <footer id="lesson-footer" class="lesson-footer"></footer>
-    </main>
-  </div>
-  <div id="toast" class="toast" role="status" aria-live="polite"></div>
-  <noscript><p>Activa JavaScript para usar los ejercicios. También puedes descargar el cuaderno desde la carpeta cuadernos del repositorio.</p></noscript>
-</body>
-</html>
-
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Aula de pandas para Ingeniería Industrial: guía desde cero, prácticas, proyecto de producción y laboratorio visual."><title>Analítica de datos 2.0 · Aula de pandas</title><link rel="stylesheet" href="styles.css?v=3"><script defer src="lesson.js?v=3"></script><script defer src="ampliacion.js?v=3"></script><script defer src="model.js"></script><script defer src="app.js?v=3"></script></head><body>
+<a class="skip-link" href="#contenido">Saltar al contenido</a>
+<header class="portal-header"><div class="wrap hero"><div><span class="badge">Aula del estudiante · Ingeniería Industrial</span><h1>Analítica de datos 2.0<br><span>De la tabla a la decisión</span></h1><p>Aprende pandas desde cero y reúne lo aprendido en un proyecto de producción. Lee cada instrucción, comprueba el resultado y explica qué puedes concluir con los datos.</p><div class="actions"><a class="button" href="#preparacion">Comenzar paso a paso</a><a class="button secondary" href="https://colab.research.google.com/github/karendayana2590-bot/analitica-de-datos-2.0/blob/main/cuadernos/Clase_1_pandas_desde_cero.ipynb" target="_blank" rel="noopener">Abrir el cuaderno en Colab</a></div><p class="hero-note">Unidad 2 · Fundamentos de pandas y laboratorio de aplicación</p></div><div class="hero-visual" aria-label="Recorrido: datos, tabla, consulta y decisión"><div class="hero-code">import pandas as pd<br>df = pd.read_csv("produccion.csv")<br>df.head()</div><div class="hero-flow"><span>Datos</span><b>→</b><span>Tabla</span><b>→</b><span>Consulta</span></div><p>8 lotes simulados · 10 variables<br>Una explicación para cada resultado</p></div></div></header>
+<nav class="portal-tabs" aria-label="Navegación del aula"><div class="wrap"><a href="#preparacion">Preparación</a><a href="#indice">Índice</a><a href="#tabla">Fundamentos</a><a href="#inspeccion">Consultas</a><a href="#proyecto">Proyecto</a><a href="#laboratorio">Laboratorio</a><a href="#cierre">Evaluación</a><a href="#recursos">Materiales</a></div></nav>
+<main class="wrap" id="contenido" tabindex="-1"><div id="save-notice" role="status"></div>
+<section class="card" id="preparacion"><span class="badge">Antes de la primera celda</span><h2>Prepara tu espacio y reconoce la ruta</h2><p>Primero revisa los fundamentos de <a href="https://karendayana2590-bot.github.io/1682913-ANAL-TICA-DE-DATOS/">Introducción a Python</a>: celdas, variables, listas, diccionarios e importaciones. Esta aula continúa con tablas y consultas. El proyecto avanzado del aula anterior puede retomarse después.</p><div class="route-grid"><div class="box"><h3>Encuentro 1 · 120 minutos</h3><p>Preparación, filas y columnas, sintaxis, Series, DataFrames, lectura de CSV, inspección y filtros. Termina con la práctica y el reto.</p></div><div class="box green"><h3>Encuentro 2 · 120 minutos</h3><p>Retoma las dudas y desarrolla el proyecto acompañado: controles iniciales, columnas calculadas, resumen por turno, laboratorio y entrega. Es una ampliación de la primera clase.</p></div></div><h3>Colab paso a paso</h3><ol><li>Pulsa <a href="https://colab.research.google.com/github/karendayana2590-bot/analitica-de-datos-2.0/blob/main/cuadernos/Clase_1_pandas_desde_cero.ipynb" target="_blank" rel="noopener">Abrir el cuaderno de esta clase en Colab</a>. El archivo se llama <strong>Clase_1_pandas_desde_cero.ipynb</strong>.</li><li>Guarda una copia en Drive desde el menú Archivo. Así conservarás tu trabajo en tu propia copia.</li><li>Conecta el entorno de ejecución. Lee la primera explicación y ejecuta la primera celda con Mayús + Intro.</li><li>La primera celda prepara <code>produccion.csv</code> si falta. Los datos están incluidos: puedes comenzar sin subir archivos.</li><li>Ejecuta las celdas de arriba abajo. Después de reiniciar el entorno, vuelve a ejecutar la preparación.</li><li>Antes de entregar, guarda el cuaderno, reinicia el entorno y ejecuta todas las celdas. Descarga también los CSV que generes.</li></ol><details><summary>Si prefieres Jupyter en tu equipo</summary><p>Descarga el cuaderno y los datos desde Materiales. Guárdalos en una misma carpeta. Abre el cuaderno en Jupyter con pandas instalado y ejecuta desde la primera celda. Si aparece <code>ModuleNotFoundError</code>, instala pandas en el mismo entorno que utiliza el cuaderno.</p><pre class="code-display"><code>python -m pip install jupyterlab pandas
+python -m jupyterlab</code></pre></details><div class="box yellow"><strong>Dónde se ejecuta cada actividad</strong><p>Los exploradores y simuladores de esta página se ejecutan en JavaScript y están identificados. El cuaderno de Colab o Jupyter ejecuta Python. El laboratorio Python de la página es opcional y necesita descargar Pyodide; si tu navegador bloquea la descarga, utiliza el cuaderno.</p></div></section>
+<section class="card" id="indice"><span class="badge">Ruta de aprendizaje</span><h2>Índice de la clase</h2><p>Puedes leer todo el recorrido en esta página o ir directamente a un bloque. Marca cada bloque después de practicarlo.</p><div class="progress-wrap"><span id="progress-label"></span><progress id="progress" max="17" value="0"></progress></div><div id="sidebar"><nav id="lesson-nav" class="module-grid" aria-label="Índice por bloques"></nav></div><button id="menu-toggle" hidden aria-expanded="false">Recorrido</button></section>
+<article id="lesson-content"></article><section class="card" id="docente"></section><section class="card" id="recursos"></section><footer id="lesson-footer" class="card"></footer></main><footer class="portal-footer"><p>Analítica de datos 2.0 · Ingeniería Industrial</p><p>Datos simulados para aprendizaje. El avance se conserva en este navegador.</p><div class="actions"><button id="export-progress">Guardar mi trabajo</button><button class="secondary" id="reset-progress">Reiniciar mi avance</button><button class="secondary" id="print-class">Imprimir o guardar PDF</button></div></footer><div id="toast" class="toast" role="status" aria-live="polite"></div><noscript>Esta aula requiere JavaScript para mostrar las actividades. Puedes descargar el cuaderno en el repositorio de GitHub.</noscript></body></html>

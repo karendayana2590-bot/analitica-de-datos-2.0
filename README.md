@@ -10,7 +10,7 @@ La [guía docente del aula anterior](https://github.com/karendayana2590-bot/1682
 
 ## Aprendizaje
 
-El recorrido tiene 14 tramos: situación industrial, datos y registros, lectura de sintaxis, importación, Series, DataFrames, CSV, inspección, tipos, selección, filtros, práctica acompañada, reto y cierre. Incluye 18 ejemplos editables de Python, un explorador visual, preguntas con retroalimentación y autoevaluación. El modo docente contiene preparación, respuestas y guion de 120 minutos. Se añaden 120 minutos de trabajo independiente.
+El recorrido tiene 17 bloques: situación industrial, datos y registros, lectura de sintaxis, importación, Series, DataFrames, CSV, inspección, tipos, selección, filtros, práctica acompañada, reto y cierre. Incluye 22 ejemplos editables de Python, un explorador visual, preguntas con retroalimentación y autoevaluación. El modo docente contiene preparación, respuestas y dos encuentros de 120 minutos. El primero desarrolla fundamentos; el segundo amplía con un proyecto de producción. Se conserva la práctica independiente de la clase inicial.
 
 Cada ejemplo explica la pregunta, las líneas de código, el resultado esperado, su interpretación, errores frecuentes y una posible decisión. Los ocho registros son simulados y corresponden a lotes de 60 minutos programados. No respaldan decisiones sobre una empresa real.
 
@@ -26,7 +26,7 @@ El avance, las respuestas y el código editado se conservan en el almacenamiento
 
 - `data/produccion.csv`: ocho registros y diez campos.
 - `cuadernos/Clase_1_pandas_desde_cero.ipynb`: conceptos, ejemplos con salidas comprobadas, práctica y solución del reto. La primera celda crea el CSV si no existe en la carpeta actual, sin sobrescribir un archivo existente.
-- `lesson.js`: contenido pedagógico y datos del caso.
+- `lesson.js y ampliacion.js`: contenido pedagógico y datos del caso.
 - `model.js`: reglas de selección y comprobación de respuestas.
 - `app.js`, `python-worker.js` y `styles.css`: interfaz y laboratorio.
 
@@ -57,4 +57,9 @@ Las pruebas verifican selección por turno y umbral, fronteras, respuestas incom
 ## Fuentes
 
 [Estructuras de pandas](https://pandas.pydata.org/docs/getting_started/intro_tutorials/01_table_oriented.html), [lectura de archivos](https://pandas.pydata.org/docs/getting_started/intro_tutorials/02_read_write.html), [selección de datos](https://pandas.pydata.org/docs/getting_started/intro_tutorials/03_subset_data.html) y [Pyodide](https://pyodide.org/en/stable/usage/quickstart.html).
+
+
+## Aula continua
+
+La versión ampliada mantiene portada azul, índice por bloques y lectura continua, como el aula de introducción. Incluye acceso directo a Colab, código copiable con su preparación, proyecto reproducible, laboratorio visual con descarga de selección y criterios de entrega. Python en la página es opcional; Colab o Jupyter es la vía propuesta para el cuaderno.
 
