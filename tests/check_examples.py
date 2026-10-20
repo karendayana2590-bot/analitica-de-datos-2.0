@@ -23,6 +23,19 @@ class LessonExamples(unittest.TestCase):
         self.assertEqual(df[df['cantidad']>=120]['id'].tolist(),[5,7,8])
         self.assertEqual(df['cantidad'].sum(),880)
         self.assertFalse(pd.api.types.is_datetime64_any_dtype(df['fecha']))
+    def test_project_outputs(self):
+        for name in ['project-summary','project-export']:
+            e=next(e for e in examples if e['id']==name)
+            result=json.loads(evaluate(e['code'],e['prepare']))
+            self.assertTrue(result['ok'])
+            if name=='project-summary':
+                for expected in ['448','404','97.39','96.19']:
+                    self.assertIn(expected,result['html'])
+            else:
+                self.assertEqual(result['stdout'].strip(),'(2, 5)')
+                report=pd.read_csv('resumen_turnos.csv')
+                self.assertEqual(report['turno'].tolist(),['A','B'])
+                self.assertEqual(report['buenas'].sum(),852)
     def test_errors_are_visible(self):
         cases=[('df["produccion"]','KeyError'),('df.shape()','TypeError'),('DF.head()','NameError'),('df[df["turno"] = "A"]','SyntaxError'),('pd.read_csv("no_existe.csv")','FileNotFoundError')]
         for code,kind in cases:

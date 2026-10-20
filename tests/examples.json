@@ -106,5 +106,29 @@
     "code": "turno_b = df[df[\"turno\"] == \"B\"]\n# Escribe aquí la selección de id y cantidad",
     "prepare": "import pandas as pd\ndf = pd.read_csv(\"produccion.csv\")",
     "expected": "Cuatro filas, dos columnas. Ids 2, 4, 6 y 8; cantidades 90, 100, 110 y 120."
+  },
+  {
+    "id": "project-check",
+    "code": "print(\"Dimensiones:\", df.shape)\nprint(\"Valores ausentes:\", df.isna().sum().sum())\nprint(\"Ids repetidos:\", df[\"id\"].duplicated().sum())\ninvalido = (df[\"cantidad\"] <= 0) | (df[\"defectuosas\"] < 0) | (df[\"defectuosas\"] > df[\"cantidad\"]) | (df[\"parada_min\"] < 0) | (df[\"parada_min\"] > df[\"tiempo_min\"])\ndf[invalido]",
+    "prepare": "import pandas as pd\ndf = pd.read_csv(\"produccion.csv\")",
+    "expected": "Dimensiones (8, 10), cero valores ausentes, cero ids repetidos y una tabla vacía de registros inválidos."
+  },
+  {
+    "id": "project-columns",
+    "code": "df[\"buenas\"] = df[\"cantidad\"] - df[\"defectuosas\"]\ndf[\"operacion_min\"] = df[\"tiempo_min\"] - df[\"parada_min\"]\ndf[[\"id\", \"cantidad\", \"defectuosas\", \"buenas\", \"operacion_min\"]]",
+    "prepare": "import pandas as pd\ndf = pd.read_csv(\"produccion.csv\")",
+    "expected": "El lote 1 tiene 98 unidades buenas y 37.5 minutos de operación. El lote 8 tiene 115 buenas y 46.5 minutos."
+  },
+  {
+    "id": "project-summary",
+    "code": "resumen = df.groupby(\"turno\")[[\"cantidad\", \"defectuosas\", \"buenas\"]].sum()\nresumen[\"calidad_pct\"] = resumen[\"buenas\"] / resumen[\"cantidad\"] * 100\nresumen.round(2)",
+    "prepare": "import pandas as pd\ndf = pd.read_csv(\"produccion.csv\")\ndf[\"buenas\"] = df[\"cantidad\"] - df[\"defectuosas\"]\ndf[\"operacion_min\"] = df[\"tiempo_min\"] - df[\"parada_min\"]",
+    "expected": "A: 460 producidas, 12 defectuosas, 448 buenas y 97.39 % de calidad. B: 420 producidas, 16 defectuosas, 404 buenas y 96.19 %."
+  },
+  {
+    "id": "project-export",
+    "code": "resumen = df.groupby(\"turno\")[[\"cantidad\", \"defectuosas\", \"buenas\"]].sum()\nresumen[\"calidad_pct\"] = resumen[\"buenas\"] / resumen[\"cantidad\"] * 100\nresumen.reset_index().to_csv(\"resumen_turnos.csv\", index=False)\nprint(pd.read_csv(\"resumen_turnos.csv\").shape)",
+    "prepare": "import pandas as pd\ndf = pd.read_csv(\"produccion.csv\")\ndf[\"buenas\"] = df[\"cantidad\"] - df[\"defectuosas\"]\ndf[\"operacion_min\"] = df[\"tiempo_min\"] - df[\"parada_min\"]",
+    "expected": "(2, 5). El archivo se llama resumen_turnos.csv."
   }
 ]
