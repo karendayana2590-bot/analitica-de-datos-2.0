@@ -1,9 +1,11 @@
-# Verificación de la clase
+# Verificación del aula ampliada
 
 Fecha: 20 de octubre de 2026.
 
-Se aprobaron ocho pruebas de JavaScript para los datos, filtros, respuestas y estructura de los ejemplos. Se aprobaron cinco pruebas de Python que ejecutan los 18 ejemplos y comprueban resultados, errores, límites de salida y escape de texto. El cuaderno se ejecutó en orden desde un espacio de nombres nuevo.
+La versión ampliada tiene 17 bloques y 22 ejemplos de Python. Se aprobaron ocho pruebas de JavaScript y seis pruebas de Python, incluidos resultados del proyecto, exportación, filtros y mensajes de error. El cuaderno se ejecutó en orden y conserva 43 celdas de código con sus salidas.
 
-La publicación de GitHub Pages abre correctamente. Se comprobó la navegación y la retroalimentación de una pregunta en el navegador. La primera prueba de carga de Python en el navegador falló; los resultados de Python comprobados localmente no certifican todavía la ejecución de Pyodide en todos los navegadores. El explorador visual y el cuaderno permiten continuar la práctica.
+La página publicada muestra el recorrido completo. Se verificó la navegación por anclas y la ausencia de identificadores duplicados. La selección de turno A con mínimo de 120 conserva ids 5 y 7: 250 producidas, 244 buenas y 97.60 % de calidad. Los componentes visuales son JavaScript y están identificados.
 
-No se ha completado una revisión con dispositivos móviles físicos.
+El navegador de la conversación bloqueó anteriormente cdn.jsdelivr.net con ERR_BLOCKED_BY_CLIENT. No se afirma haber verificado Pyodide dentro de este navegador. El acceso directo a Colab y el cuaderno ejecutado permiten practicar Python por separado.
+
+La inspección visual se realizó en escritorio. No se ha completado una revisión con dispositivos móviles físicos.
