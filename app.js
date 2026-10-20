@@ -1,11 +1,12 @@
 (function(){
 'use strict';
+if('scrollRestoration' in history)history.scrollRestoration='manual';
 const L=window.LESSON,M=window.LessonModel,KEY='analitica-2-clase1-v1';
 const $=s=>document.querySelector(s), esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 let storageAvailable=true,state={version:1,done:[],answers:{},edits:{},work:{}};
 try{const saved=JSON.parse(localStorage.getItem(KEY)||'null');if(saved&&saved.version===1){state.done=Array.isArray(saved.done)?saved.done.filter(id=>L.steps.some(s=>s.id===id)):[];for(const k of ['answers','edits','work'])if(saved[k]&&typeof saved[k]==='object'&&!Array.isArray(saved[k]))state[k]=saved[k];}}catch(e){storageAvailable=false;}
 const outputs=new Map();let engine='off',worker=null,request=0,pending=null,loadTimeout=null,toastTimer=null;
-function save(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){storageAvailable=false;$('#save-notice').innerHTML='<p class="notice">Este navegador no permite guardar el avance. Usa «Guardar mi trabajo» antes de cerrar.</p>';}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){storageAvailable=false;$('#save-notice').innerHTML='<p class="notice">Este navegador no conserva el avance. Mantén abierta la clase mientras realizas las actividades.</p>';}}
 function toast(message){$('#toast').textContent=message;$('#toast').classList.add('visible');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('#toast').classList.remove('visible'),3500);}
 function stepId(){const id=decodeURIComponent(location.hash.slice(1)||'inicio');return L.steps.some(s=>s.id===id)||['docente','recursos'].includes(id)?id:'inicio';}
 function renderNav(){const id=stepId();$('#lesson-nav').innerHTML=L.steps.map((s,i)=>`<a href="#${s.id}" ${id===s.id?'aria-current="step"':''}><span class="step-number">${state.done.includes(s.id)?'✓':String(i).padStart(2,'0')}</span><span>${esc(s.short)}</span></a>`).join('');$('#progress').value=state.done.length;$('#progress-label').textContent=`${state.done.length} de ${L.steps.length} bloques revisados`;}
@@ -27,7 +28,7 @@ function demoHtml(type){
 }
 function render(){renderNav();document.title='Analítica de datos 2.0 · Aula de pandas';
 $('#lesson-content').innerHTML=L.steps.map((s,i)=>`<section class="card lesson-block" id="${s.id}"><p class="eyebrow">Bloque ${String(i+1).padStart(2,'0')} · ${esc(s.short)}</p><h2>${esc(s.title)}</h2><p class="lead">${esc(s.lead)}</p><div class="goal"><strong>Al terminar este bloque</strong>${esc(s.goal)}</div>${s.html||''}${s.demo&&!['guided','challenge','assessment','simulator'].includes(s.demo)?demoHtml(s.demo):''}${(s.labs||[]).map(runnerHtml).join('')}${s.demo&&['guided','challenge','assessment'].includes(s.demo)?demoHtml(s.demo):''}${s.demo==='simulator'?L.simulatorHtml:''}${s.after||''}${s.quiz?quizHtml(s.quiz,s.id):''}<label class="complete"><input type="checkbox" data-review="${s.id}" ${state.done.includes(s.id)?'checked':''}>Ya revisé y practiqué este bloque</label><a class="back-index" href="#indice">Volver al índice</a></section>`).join('');
-$('#docente').innerHTML=L.teacher.replaceAll('<h1>','<h2>').replaceAll('</h1>','</h2>');$('#recursos').innerHTML=L.resources.replaceAll('<h1>','<h2>').replaceAll('</h1>','</h2>');$('#lesson-footer').innerHTML='<p>Conserva tu cuaderno ejecutado y una explicación propia del resultado. El avance de la página registra los bloques que tú marcaste.</p><button data-export>Guardar mi trabajo</button>';
+$('#docente').innerHTML=L.teacher.replaceAll('<h1>','<h2>').replaceAll('</h1>','</h2>');$('#recursos').innerHTML=L.resources.replaceAll('<h1>','<h2>').replaceAll('</h1>','</h2>');$('#lesson-footer').replaceChildren();
 L.steps.forEach(s=>(s.labs||[]).forEach(l=>{if(outputs.has(l.id))paintOutput(l.id,outputs.get(l.id));}));updateEngine();updateSimulator();}
 function renderFooter(s){const i=L.steps.indexOf(s),done=state.done.includes(s.id);$('#lesson-footer').innerHTML=`<div><button class="quiet" id="mark-reviewed">${done?'Tramo revisado ✓':'Marcar este tramo como revisado'}</button>${done?'<span class="step-reviewed"> Guardado</span>':''}</div><div class="nav-buttons">${i?`<a href="#${L.steps[i-1].id}" class="teacher-link">Anterior</a>`:''}${i<L.steps.length-1?`<a class="next-link" href="#${L.steps[i+1].id}">Continuar: ${esc(L.steps[i+1].short)}</a>`:'<button class="quiet" data-export>Guardar mi trabajo</button>'}</div>`;}
 function engineLabel(){return{off:'Python sin activar',loading:'Cargando herramientas…',ready:'Python y pandas disponibles',busy:'Ejecutando…',error:'La carga necesita revisión'}[engine];}
@@ -66,7 +67,9 @@ document.addEventListener('input',event=>{if(event.target.matches('[data-editor]
 document.addEventListener('keydown',event=>{if(event.target.matches('[data-editor]')&&(event.ctrlKey||event.metaKey)&&event.key==='Enter'){event.preventDefault();runLab(event.target.dataset.editor);}if(event.target.matches('tr[data-record]')&&['Enter',' '].includes(event.key)){event.preventDefault();event.target.click();}});
 window.addEventListener('hashchange',()=>{renderNav();});
 document.addEventListener('change',event=>{if(event.target.matches('[data-review]')){const id=event.target.dataset.review;state.done=state.done.filter(x=>x!==id);if(event.target.checked)state.done.push(id);save();renderNav();}if(event.target.closest('#simulator-form'))updateSimulator();if(event.target.closest('#guided-form,#challenge-form'))fillWork(event.target.closest('form'));});
-render();if(typeof updateSimulator==='function')updateSimulator();if(location.hash)requestAnimationFrame(()=>document.getElementById(decodeURIComponent(location.hash.slice(1)))?.scrollIntoView());if(!storageAvailable)$('#save-notice').innerHTML='<p class="notice">El avance no se puede guardar en este navegador. Descarga tu trabajo antes de cerrar.</p>';
+function openLessonPosition(){const target=document.getElementById(decodeURIComponent(location.hash.slice(1)));if(target)target.scrollIntoView({behavior:'instant',block:'start'});else window.scrollTo({top:0,behavior:'instant'});}
+window.addEventListener('pageshow',openLessonPosition);
+render();if(typeof updateSimulator==='function')updateSimulator();openLessonPosition();if(!storageAvailable)$('#save-notice').innerHTML='<p class="notice">Este navegador no conserva el avance. Mantén abierta la clase mientras realizas las actividades.</p>';
 })();
 
 
